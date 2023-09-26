@@ -1,28 +1,34 @@
 #include "main.h"
-
 /**
- * print_square - print diagonal to terminal , using specified magnitude where a magnitude is Hash.
- * @size: magnitude (the number of Hash)
+ * print_square - prints a square
+ *@size: print size
+ * Return: Always 0.
  */
+
 void print_square(int size)
 {
-	int length;
-	int breadth;
 
-	length = size;
-	if (size > 0)
-	{
-		while (length > 0)
-		{
+int i;
+int k;
 
-			breadth = size;
-			while (breadth > 0)
-			{
-				_putchar('#');
-				breadth--;
-			}
-			_putchar(10);
-			length--;
-		}
-	}
+if (size > 0)
+{
+for (i = 0; i < size; i++)
+{
+
+for (k = 0; k < size; k++)
+{
+_putchar (35);
+}
+_putchar ('\n');
+
+}
+
+}
+
+else
+{
+_putchar ('\n');
+}
+
 }

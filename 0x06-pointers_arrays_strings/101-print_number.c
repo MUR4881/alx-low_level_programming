@@ -1,40 +1,33 @@
 #include "main.h"
-
 /**
- * print_number - print given integer to stdout
- * @n: the given integer
- */
+* print_number - printing number with puts
+*
+* @n: input int
+*/
+
 void print_number(int n)
 {
-	int len, copy, len2;
+	int count = 0, pow = 1;
+	unsigned int num = n;
 
-	len2 = 0;
 	if (n < 0)
 	{
 		_putchar('-');
-		n = -n;
+		num = -n;
 	}
-	while (n > 9)
+	while (n != 0)
 	{
-		copy = n;
-
-		for (len = 1; copy > 9; copy /= 10, len *= 10)
-		{
-			if (copy % 10 == 0 && copy != 0 && copy / 10 <= 10)
-				len2++;
-		
-		}
-		
-		_putchar(copy + '0');
-
-		while(len2 > 0)
-		{
-			_putchar('0');
-			len2--;
-		}
-		
-		n =  n - (copy * len);
+		n /= 10;
+		count++;
 	}
-	_putchar(n + '0');
+	while (count > 1)
+	{
+		pow *= 10;
+		count--;
+	}
+	while (pow >= 1)
+	{
+		_putchar(num / pow % 10 + '0');
+		pow /= 10;
+	}
 }
-	

@@ -1,27 +1,31 @@
+#include "main.h"
 /**
- * cap_string - capitalize the first char of each world
- * @s: given string
- * Return: the converted string
- */
+* cap_string - capitalizes everey word of a string
+*
+* @s: string to modify
+*
+* Return: the resulting string
+*/
+
 char *cap_string(char *s)
 {
-	int index1, index2;
-	char *t = ",;.!?\"(){}\t\n\v ";
+	int x = 0, y;
+	char special[13] = {9, 10, 32, 33, 34, 40, 41,
+		44, 46, 59, 63, 123, 125};
 
-	for (index1 = 0; s[index1]; index1++)
+	while (*(s + x))
 	{
-		for (index2 = 0; t[index2]; index2++)
+		for (y = 0; y < 13; y++)
 		{
-			if (s[index1] == t[index2])
+			if (x == 0 && s[x] >= 97 && s[x] <= 122)
+				s[x] -= 32;
+			if (s[x - 1] == special[y])
 			{
-				if (s[index1 + 1] >= 'a' && s[index1 + 1] <= 'z')
-					s[index1 + 1] = s[index1 + 1] - 32;
+				if ((*(s + x) >= 97) &&  (*(s + x) <= 122))
+					*(s + x) -= 32;
 			}
-			else
-				continue;
 		}
+		x++;
 	}
 	return (s);
 }
-
-
