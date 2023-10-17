@@ -1,2 +1,3 @@
                     JOURNEYING INTO LOW LEVEL PROGRAMMING
-* A beutiful journey Indeed
+* A beautiful journey Indeed
+* Into Programming in low level
