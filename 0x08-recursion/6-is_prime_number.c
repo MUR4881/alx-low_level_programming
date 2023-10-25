@@ -1,32 +1,32 @@
+#include "main.h"
 /**
- * prime_checker - check for the prime_number
- * @n: the number to be checked
- * @c: half (1/2) of n
- * Return: 1 if the input integer is a prime_number but 0 if otherwise
- */
-int prime_checker(int n, int c)
-{
-	int a;
-
-	a = 0;
-	if (c == 1 || c <= 0)
-		return (0);
-	else if (n % c == 0)
-		a++;
-	 return (a + prime_checker(n, --c));
-}
-/**
- * is_prime_number - check if an integer is a prime_number
- * @n: the number being checked
- * Return: 1 if the input integer is a prime_number but 0 otherwise
- */
+* is_prime_number - returns true if the number is prime
+*@n: the number to check
+*
+*Return: true if the number is prime
+*/
 int is_prime_number(int n)
 {
-	int v;
+	int start = n / 2;
 
-	v = prime_checker(n, n);
-	if (v == 1)
-		return (1);
-	else
+	if (n <= 1)
 		return (0);
+	return (is_prime(n, start));
+}
+
+/**
+* is_prime - returns the 1 if n is prime
+* @n: number to be checked
+* @start: number to start checking from
+*
+* Return: 1 if n is prime, 0 otherwise
+*/
+
+int is_prime(int n, int start)
+{
+	if (start <= 1)
+		return (1);
+	else if (n % start == 0)
+		return (0);
+	return (is_prime(n, start - 1));
 }

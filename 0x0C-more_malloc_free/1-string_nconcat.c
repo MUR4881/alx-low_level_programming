@@ -1,51 +1,45 @@
-#include <stdlib.h>
+#include "main.h"
+/**
+ * string_nconcat - to concatenate two strings
+ * @s1: our first string
+ * @s2: Our second string
+ * @n: index
+ * Return: character pointer
+ */
 
-/**
- * _length - gets the length of the given string
- * @s: the given the string
- * Return: the total length of the string
- */
-int _length(char *s)
-{
-	if (!(*s))
-		return (1);
-	return (1 + _length(s + 1));
-}
-/**
- * string_nconcat - conatinated n bytes of S2 to s1
- * @s1: the string to be concatinated to
- * @s2: the string whose n bytes is to be concatined to s1
- * @n: the number of s2 bytes to be allocated
- * Return: pointer to the new string, OR NULL if it fails
- */
 char *string_nconcat(char *s1, char *s2, unsigned int n)
 {
-	__attribute__((unused)) int l3, l1, l2, iterator, iterator2;
-	char *s;
+	char *panda;
+	unsigned int d1, d2, dkin, i;
 
-	l1 = l2 = 0;
+	if (s1 == NULL)
+		s1 = "";
+
 	if (s2 == NULL)
 		s2 = "";
-	l1 = _length(s1) - 1;
-	l2 = _length(s2);
-		if ((int) n >= l2 - 2)
-			l3 = l1 + l2;
-		else
-			l3 = l1 + n;
-	s = malloc((l3) * sizeof(char));
-	if (s == NULL)
+
+	for (d1 = 0; s1[d1] != '\0'; d1++)
+		;
+	for (d2 = 0; s2[d2] != '\0'; d2++)
+		;
+
+	if (n > d2)
+		n = d2;
+
+	dkin = d1 + n;
+
+	panda = malloc(dkin + 1);
+
+	if (panda == NULL)
 		return (NULL);
-	for (iterator = iterator2 =  0; iterator <= l3; iterator++)
-	{
-		if (iterator <  l1)
-			s[iterator] = s1[iterator];
+
+	for (i = 0; i < dkin; i++)
+		if (i < d1)
+			panda[i] = s1[i];
 		else
-		{
-			s[iterator] = s2[iterator2];
-			iterator2++;
-		}
-	}
-	if (*s2 != '\0')
-		s[iterator + 1] = '\0';
-	return (s);
+			panda[i] = s2[i - d1];
+
+	panda[i] = '\0';
+
+	return(panda);
 }

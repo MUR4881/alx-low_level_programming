@@ -1,20 +1,27 @@
 #include <stdio.h>
 #include <stdlib.h>
-
 /**
- * main - mutliplies the first to arguement supplied to the program
- * @argv: an array of the arguements
- * @argc: the size of @argv
- * Return: 0 if possible or Error if wrong
- */
+* main - Entry
+* @argc: arg counter
+* @argv: arguments array
+* Return: Always 0 (Success)
+*/
+
 int main(int argc, char *argv[])
 {
+	int a, b;
+	(void)argc;
+	(void)argv;
+
 	if (argc < 3)
 	{
 		printf("Error\n");
 		return (1);
 	}
-	else
-		printf("%d\n", (atoi(argv[1]) * atoi(argv[2])));
+
+	a = atoi(argv[1]);
+	b = atoi(argv[2]);
+
+	printf("%d\n", a * b);
 	return (0);
 }

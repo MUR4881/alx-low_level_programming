@@ -1,32 +1,28 @@
-#include <stdlib.h>
+#include "main.h"
 
 /**
- * recurse - uses recursion to fill an array with specific char
- * @size: the size of the array
- * @c: The character to fill it with
- * @p: A pointer to the memory location where chars should be filled with
- * Return: base pointer to the array
- */
-void *recurse(unsigned int size, char c, char *p)
-{
-	if (size != 0)
-		recurse(--size, c, p);
-	p[size] = c;
-	return (NULL);
-}
-/**
- * create_array - of variable size
- * @size: the size of array
- * @c: the char to fill the array with
- * Return: NULL if size = 0 or fails, or pointer to othe array
- */
+* create_array - creates an array of chars, and
+* initializes it with a specific char.
+*@size: Size of the array
+*@c: Character to insert
+*Return: NULL if size is zero or if it fails,
+*pointer to array if everything is normal.
+*/
+
 char *create_array(unsigned int size, char c)
 {
-	char *p;
+	char *array;
+	unsigned int index;
 
-	p = malloc((size + 1) * sizeof(char));
-	if (p == NULL || size == 0)
+	if (size == 0)
 		return (NULL);
-	recurse(size, c, p);
-	return (p);
+	array = malloc(sizeof(char) * size);
+
+	if (array == NULL)
+		return (NULL);
+
+	for (index = 0; index < size; index++)
+		array[index] = c;
+
+	return (array);
 }

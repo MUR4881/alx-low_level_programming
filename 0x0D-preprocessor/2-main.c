@@ -1,8 +1,7 @@
 #include <stdio.h>
-
 /**
- * main - a program that prints the name of the program it was compiled from
- * Return: always zero success
+ *  main - check the code for Holberton School students.
+ *  Return: Always 0
  */
 int main(void)
 {

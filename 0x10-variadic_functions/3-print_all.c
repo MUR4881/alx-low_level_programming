@@ -1,73 +1,52 @@
-#include "variadic_functions.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <stdarg.h>
+#include "variadic_functions.h"
 
 /**
- * pc - prints char
- * @v: pointer to character to be printed
- */
-void pc(va_list v)
-{
-	printf("%c", va_arg(v, int));
-}
-
-/**
- * pi - prints integer
- * @v: pointer to the integer to be printed
- */
-void pi(va_list v)
-{
-	printf("%i", va_arg(v, int));
-}
-
-/**
- * pf - prints float
- * @v: the pointer to the float to be printed
- */
-void pf(va_list v)
-{
-	printf("%f", va_arg(v, double));
-}
-
-/**
- * ps - prints string
- * @v: the pointer to the string
- */
-void ps(va_list v)
-{
-	char *s = va_arg(v, char *);
-
-	s == NULL? s = "(nil)":0;
-	printf("%s", s);
-}
-
-/**
- * print_all - a funtion that prints anything.
- * @format: what needs to be printed
- */
+  *print_all - function that prints anything.
+  *@format: the list of arguments passed to the function.
+  *
+  *Return: void.
+  */
 void print_all(const char * const format, ...)
 {
-	int i, j;
-	va_list v;
+	unsigned int d;
+	va_list myargs;
+	char *s, *separator;
 
-	ops array[] = {{"c", pc}, {"i", pi}, {"f", pf}, {"s", ps}, {NULL, NULL}};
-	va_start(v, format);
-	
-	i = 0;
-	while((format[i]))
+	va_start(myargs, format);
+
+	separator = "";
+
+	d = 0;
+	while (format && format[d])
 	{
-		j = 0;
-		while((array[j].format != NULL))
+		switch (format[d])
 		{
-			if(format[i] == array[j].format[0])
-			{
-				array[j].b(v);
-				if(format[i + 1])
-					printf(", ");
+			case 'c':
+				printf("%s%c", separator,  va_arg(myargs, int));
 				break;
-			}
-			j++;
+			case 'i':
+				printf("%s%d", separator, va_arg(myargs, int));
+				break;
+			case 'f':
+				printf("%s%f", separator, va_arg(myargs, double));
+				break;
+			case 's':
+				s = va_arg(myargs, char *);
+				if (s == NULL)
+					s = "(nil)";
+				printf("%s%s", separator, s);
+				break;
+			default:
+				d++;
+				continue;
 		}
-		i++;
+		separator = ", ";
+		d++;
 	}
+
 	printf("\n");
+	va_end(myargs);
 }

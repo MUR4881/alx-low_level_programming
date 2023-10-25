@@ -1,30 +1,50 @@
 #include <stdio.h>
+#include <stdbool.h>
 #include <stdlib.h>
-
 /**
- * main - adds up sets of command line arguement
- * @argv:an array of strings(command line arguements)
- * @argc: The size of array argv
- * Return: if a non numeric symbol is found return (-1) other (0)
- */
-int main(int argc, char *argv[])
-{
-	int i, sum;
+* isNumeric - checks if string is numeric
+* @s: string to check
+* Return: true if is numeric, otherwise return false
+*/
 
-	sum = 0;
-	if (argc > 1)
+bool isNumeric(char *s)
+{
+	int i;
+
+	for (i = 0; s[i] != '\0'; i++)
 	{
-		for (i = 1; i < argc; i++)
+		if (s[i] < 48 || s[i] > 57)
 		{
-			if (atoi(argv[i]) <= 0)
-			{
-				printf("Error\n");
-				return (1);
-			}
-			else
-				sum += atoi(argv[i]);
+			return (false);
 		}
 	}
+	return (true);
+}
+
+/**
+* main - Entry Point
+* @argc: arg counter
+* @argv: arguments array
+* Return: Always 0 (Success)
+*/
+
+int main(int argc, char *argv[])
+{
+	int sum = 0;
+	int i;
+	(void)argc;
+	(void)argv;
+
+	for (i = 1; i < argc; i++)
+	{
+		if (!isNumeric(argv[i]))
+		{
+			printf("Error\n");
+			return (1);
+		}
+		sum += atoi(argv[i]);
+	}
 	printf("%d\n", sum);
+
 	return (0);
 }

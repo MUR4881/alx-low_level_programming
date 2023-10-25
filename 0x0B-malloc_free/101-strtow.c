@@ -1,99 +1,101 @@
-#include <stdlib.h>
-#include <stdio.h>
+#include "main.h"
 
 /**
- * recurse_length - gets the total number of char of a string that is not space
- * @str: the string to find it length
- * Return: length of the string
- */
-int recurse_length(char *str)
-{
-	int length;
+*strtow - splits a stirng into words
+*@str: string to be splitted
+*
+*Return: pointer to the array of splitted words
+*/
 
-	length = 0;
-	if (str[0] != ' ')
-	{
-		length += 1;
-		if (str[1] == ' ')
-			length +=1;
-	}
-	if (str[0] == '\0')
-		return (length);
-	return (length + recurse_length(str + 1));
-}
-/**
- * array_size - gets the size of the pointers array
- * @size: the string to be gone through
- * Return: the size
- */
-int array_size (char *size, int length)
-{
-	int index,  total;
-	total = 1;
-	for (index = 0; index <= length; index++)
-	{
-		if (size[index] == '\0')
-			total++;
-	}
-	return (total);
-}
-/**
- * strtow - splits strings into words
- * @str: the string to be splited
- * Return: pointer to an array of the splitted string
- */
 char **strtow(char *str)
 {
-	int length, length2, index, index2;
-	char *size, **sizer;
+char **split;
+int i, j = 0, temp = 0, size = 0, words = num_words(str);
 
-	if (str == NULL)
-		return (NULL);
-	length = recurse_length(str);
-	size = malloc(length * sizeof(char));
-		if (size == NULL)
-			return (NULL);
-	for (index = index2 =  0; index <= length; index++)
-	{
-		if (str[index] == ' ')
-			continue;
-		size[index2] = str[index];
-		putchar(str[index]);
-		index2++;
-		if (str[index + 1] == ' ')
-			{
-				size[index2] = '\0';
-				index2++;
-			}
-		}
-	}
-	length2 = array_size(size, length);
-	sizer = malloc(length2 * sizeof(char *));
-	if (sizer == NULL)
-		return (NULL);
-	sizer[0]  = size;
-	for (index = index2 = 0; index < length; index++)
-	{
-		if (index == 0)
-		{
-			sizer[index2] = size;
-			index2++;
-		}
-		else if (index == length)
-			sizer[index2] = NULL;
-		else if (size[index] == '\0')
-		{
-			sizer[index2] = (size + (index + 1));
-			index2++;
-		}
-	}
-	for (index = 0; index <= index2; index++)
-	{
-		printf("%d\n", index);
-		if (*sizer[index] == ' ')
-			printf("space");
-		else
-			printf("%s\n", sizer[index]);
-	}
-	return (sizer);
+if (words == 0)
+return (NULL);
+split = (char **) malloc(sizeof(char *) * (words + 1));
+if (split != NULL)
+{
+for (i = 0; i <= len(str) && words; i++)
+{
+if ((str[i] != ' ') && (str[i] != '\0'))
+size++;
+else if (((str[i] == ' ') || (str[i] == '\0')) && i && (str[i - 1] != ' '))
+{
+split[j] = (char *) malloc(sizeof(char) * size + 1);
+if (split[j] != NULL)
+{
+while (temp < size)
+{
+split[j][temp] = str[(i - size) +temp];
+temp++;
+}
+split[j][temp] = '\0';
+size = temp = 0;
+j++;
+}
+else
+{
+while (j-- >= 0)
+free(split[j]);
+free(split);
+return (NULL);
+}
+}
+}
+split[words] = NULL;
+return (split);
+}
+else
+return (NULL);
+}
+
+
+/**
+* num_words - counts the number of words in str
+*@str: string to be used
+*
+*Return: number of words
+*/
+int num_words(char *str)
+{
+int i = 0, words = 0;
+
+while (i <= len(str))
+{
+if ((str[i] != ' ') && (str[i] != '\0'))
+{
+i++;
+}
+else if (((str[i] == ' ') || (str[i] == '\0')) && i && (str[i - 1] != ' '))
+{
+words += 1;
+i++;
+}
+else
+{
+i++;
+}
+}
+return (words);
+}
+
+/**
+* len - returns length of str
+*@str: string to be counted
+*
+* Return: length of the string
+*/
+
+int len(char *str)
+{
+int len = 0;
+
+if (str != NULL)
+{
+while (str[len])
+len++;
+}
+return (len);
 }

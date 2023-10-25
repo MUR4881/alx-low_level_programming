@@ -1,51 +1,38 @@
-#include <stdlib.h>
+#include "main.h"
 
 /**
- * recurse_length - finds the length of a string using recursion
- * @str: A pointer to the string
- * Return: the absolute size of the string in memory
- */
-int recurse_length(char *str)
-{
-	int i;
+* str_concat - a function that concatenates two strings.
+*@s1:First string
+*@s2:Second string
+*
+*Return: NULL in case of failure , but pointer to new string in
+*case of success
+*/
 
-	i = 1;
-	if (*str)
-		i += recurse_length(str + 1);
-	return (i);
-}
-/**
- * recurse_duplicate - duplicates a string to new memory using recursion
- * @str: string to be duplicated
- * @t: pointer to the memory it will be duplicated to.
- */
-void recurse_duplicate(char *str, char *t)
-{
-	*t = *str;
-	if (*str)
-		recurse_duplicate(&str[1], &t[1]);
-}
-/**
- * str_concat - duplicates a string
- * @s1: the string to be duplicated and concatinated
- * @s2: a string to be duplicated and concatinated
- * Return: A pointer to the duplicated string
- */
 char *str_concat(char *s1, char *s2)
 {
-	char *t;
-	int l1, l2;
+	char *concat_str;
+	int index, concat_index = 0,  len = 0;
 
 	if (s1 == NULL)
 		s1 = "";
+
 	if (s2 == NULL)
 		s2 = "";
-	l1 = recurse_length(s1) - 1;
-	l2 = recurse_length(s2);
-	t = malloc(sizeof(char) * (l1 + l2));
-	if (t == NULL)
+
+	for (index = 0; s1[index] || s2[index]; index++)
+		len++;
+
+	concat_str = malloc(sizeof(char) * len);
+
+	if (concat_str == NULL)
 		return (NULL);
-	recurse_duplicate(s1, t);
-	recurse_duplicate(s2, (t + l1));
-	return (t);
+
+	for (index = 0; s1[index]; index++)
+		concat_str[concat_index++] = s1[index];
+
+	for (index = 0; s2[index]; index++)
+		concat_str[concat_index++] = s2[index];
+
+	return (concat_str);
 }
