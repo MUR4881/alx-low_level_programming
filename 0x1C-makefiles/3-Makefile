@@ -1,0 +1,24 @@
+# variables
+CC = gcc
+SRC = main.c school.c
+RM = rm
+OBJ = $(patsubst %.c,%.o,$(SRC))
+NAME = school
+
+all: $(NAME)
+
+$(NAME): $(OBJ)
+	$(CC) $^ -o $@
+
+%.o: %.c m.h
+	$(CC) -c -o $@ $<
+
+clean:
+	$(RM) -rf *~ $(NAME)
+
+oclean: # Deletes the object files
+	$(RM) -rf $(OBJ)
+
+fclean: clean oclean  # fully clean
+
+re: oclean all # forcefully re-compile	
