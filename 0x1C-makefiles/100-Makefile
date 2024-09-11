@@ -1,0 +1,24 @@
+.PHONY: clean oclean fclean re
+
+# variables
+CC = gcc
+SRC = main.c school.c
+OBJ = $(patsubst %.c,%.o,$(SRC))
+NAME = school
+CFLAGS = -Wall -Werror -Wextra -pedantic
+
+all: $(NAME)
+
+$(NAME): $(OBJ)
+
+$(SRC): m.h
+
+clean:
+	$(RM) *~ $(NAME)
+
+oclean: # Deletes the object files
+	$(RM)  $(OBJ)
+
+fclean: clean oclean  # fully clean
+
+re: oclean all # forcefully re-compile	
